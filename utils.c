@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <time.h>
 
 int compare_int(const void *data1, const void *data2) {
     return *(int *)data1 - *(int *)data2;
@@ -129,4 +130,26 @@ void *duplicate_person(const void *data) {
 
     Person *temp = (Person *)data;
     return create_person(temp->name, temp->age);
+}
+
+char *random_string(size_t length) {
+    const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const size_t charset_size = sizeof(charset) - 1; // Exclude the null terminator
+    
+    char *random_string = malloc(length + 1);
+    if (!random_string) {
+        perror("Failed to allocate memory");
+        exit(EXIT_FAILURE);
+    }
+
+    // Seed the random number generator with higher resolution
+    srand((unsigned int)(time(NULL) ^ clock()));
+
+    for (size_t i = 0; i < length; i++) {
+        random_string[i] = charset[rand() % charset_size];
+    }
+
+    random_string[length] = '\0';
+
+    return random_string;
 }

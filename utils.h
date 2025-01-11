@@ -86,4 +86,10 @@ void show_int(const void *data, FILE *fp);
 void show_double(const void *data, FILE *fp);
 void show_str(const void *data, FILE *fp);
 
+/*
+ * Generates a random string of size length, only contains alpha characters, lower or uppercase
+ * The returned string is allocaded from the heap
+ */
+char *random_string(size_t length);
+
 #endif
